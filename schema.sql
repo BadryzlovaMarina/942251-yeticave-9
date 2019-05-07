@@ -42,6 +42,6 @@ CREATE TABLE user (
     contact TEXT NOT NULL
 );
 
-CREATE INDEX category_name ON category(category_name);
-CREATE INDEX lot_name ON lot(lot_name);
-CREATE INDEX user_name ON user(user_name);
+CREATE INDEX name ON category(name);
+CREATE INDEX name ON lot(name);
+CREATE INDEX name ON user(name);
