@@ -6,14 +6,14 @@ USE yeticave;
 
 CREATE TABLE category (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    category_name CHAR(128) NOT NULL,
+    name CHAR(128) NOT NULL,
     symbol_code CHAR(128) NOT NULL
 );
 
 CREATE TABLE lot (
     id INT AUTO_INCREMENT PRIMARY KEY,
     date_create DATETIME DEFAULT CURRENT_TIMESTAMP,
-    lot_name CHAR(128) NOT NULL,
+    name CHAR(128) NOT NULL,
     description TEXT NOT NULL,
     image CHAR(255) NOT NULL,
     start_price INT NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     reg_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     email CHAR(128) NOT NULL UNIQUE,
-    user_name CHAR(128) NOT NULL,
+    name CHAR(128) NOT NULL,
     password CHAR(128) NOT NULL,
     icon CHAR(255),
     contact TEXT NOT NULL
