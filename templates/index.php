@@ -3,9 +3,9 @@
     <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
     <ul class="promo__list">
         <!--заполните этот список из массива категорий-->
-        <?php foreach ($categories as $value): ?>
-        <li class="promo__item promo__item--boards">
-            <a class="promo__link" href="pages/all-lots.html"><?=$value; ?></a>
+        <?php foreach ($category as $value): ?>
+        <li class="promo__item promo__item--<?=$value['symbol_code']; ?>">
+            <a class="promo__link" href="pages/all-lots.html"><?=$value['name']; ?></a>
         </li>
         <?php endforeach; ?>
     </ul>
@@ -16,10 +16,10 @@
     </div>
     <ul class="lots__list">
         <!--заполните этот список из массива с товарами-->
-        <?php foreach ($item_list as $key => $item): ?>
+        <?php foreach ($item_list as $item): ?>
         <li class="lots__item lot">
             <div class="lot__image">
-                <img src="<?=esc($item['img']); ?>" width="350" height="260" alt="">
+                <img src="<?=esc($item['image']); ?>" width="350" height="260" alt="">
             </div>
             <div class="lot__info">
                 <span class="lot__category"><?=esc($item['category']); ?></span>
@@ -27,7 +27,7 @@
                 <div class="lot__state">
                     <div class="lot__rate">
                         <span class="lot__amount">Стартовая цена</span>
-                        <span class="lot__cost"><?=esc(format_cost($item['price'])); ?></span>
+                        <span class="lot__cost"><?=esc(format_cost($item['start_price'])); ?></span>
                     </div>
                     <div class="lot__timer timer <?php if ($time_count<='01:00'): ?>timer--finishing<?php endif ?>">
                         <?=$time_count; ?>
