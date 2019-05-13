@@ -2,8 +2,6 @@
 require_once('functions.php');
 require_once('init.php');
 
-date_default_timezone_set("Europe/Moscow");
-
 $dt_end = date_create("tomorrow");
 $dt_now = date_create("now");
 $dt_diff = date_diff($dt_end, $dt_now);
@@ -14,28 +12,13 @@ if (!$link) {
     print("Ошибка: Невозможно подключиться к MySQL " . $error);
 }
 else {
-    $sql = 'SELECT id, name, symbol_code FROM category';
-    $result = mysqli_query($link, $sql);
+    $sql_category = "SELECT id, name, symbol_code FROM category";
+    $category = get_mysql_result($link, $sql_category);
     
-    if ($result) {
-        $category = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    }
-    else {
-        $error = mysqli_error($link);
-        print ("Ошибка запроса: " . $error);
-    }
-    
-    $sql = "SELECT l.name title, image, start_price, c.name category FROM lot l "
-        . "JOIN category c on l.category_id = c.id "
-        . "ORDER BY date_create DESC LIMIT 6";
-
-    if ($res = mysqli_query($link, $sql)) {
-        $item_list = mysqli_fetch_all($res, MYSQLI_ASSOC);
-    }
-    else {
-        $error = mysqli_error($link);
-        print ("Ошибка запроса: " . $error);
-    }
+    $sql_lot = "SELECT l.name title, images, start_price, c.name category FROM lot l 
+                JOIN category c on l.category_id = c.id 
+                ORDER BY date_create DESC LIMIT 6";
+    $item_list = get_mysql_result($link, $sql_lot);
 }
 
 $page_content = include_template('index.php', [

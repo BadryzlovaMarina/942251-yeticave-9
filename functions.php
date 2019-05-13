@@ -31,8 +31,14 @@ function format_cost($num) {
     return $result;
 }
 
-function esc($str) {
-    $text = htmlspecialchars($str);
-
-    return $text;
+function get_mysql_result($link, $sql) {
+    $result = mysqli_query($link, $sql);
+    if (!$result) {
+        $error = mysqli_error($link);
+        print ("Ошибка запроса: " . $error);
+        exit();
+    }
+    else {
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
 }
