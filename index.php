@@ -15,7 +15,7 @@ else {
     $sql_category = "SELECT id, name, symbol_code FROM category";
     $category = get_mysql_result($link, $sql_category);
     
-    $sql_lot = "SELECT l.name title, images, start_price, c.name category FROM lot l 
+    $sql_lot = "SELECT l.name title, image, start_price, c.name category FROM lot l 
                 JOIN category c on l.category_id = c.id 
                 ORDER BY date_create DESC LIMIT 6";
     $item_list = get_mysql_result($link, $sql_lot);
