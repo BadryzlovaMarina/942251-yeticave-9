@@ -43,7 +43,10 @@
     </div>
 </header>
 
-<main class="container"><?=$content; ?></main>
+<main <?=$lot_content; ?> class="container">
+    <?=$content; ?> 
+</main>
+
 </div>
 
 <footer class="main-footer">
