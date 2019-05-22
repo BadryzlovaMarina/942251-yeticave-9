@@ -43,7 +43,7 @@
     </div>
 </header>
 
-<main <?=$lot_content; ?> class="container">
+<main class="container">
     <?=$content; ?> 
 </main>
 

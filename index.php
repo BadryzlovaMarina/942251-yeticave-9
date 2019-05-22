@@ -9,7 +9,7 @@ $time_count = date_interval_format($dt_diff, "%H:%I");
 
 if (!$link) {
     $error = mysqli_connect_error();
-    print("Ошибка: Невозможно подключиться к MySQL " . $error);
+    exit("Ошибка: Невозможно подключиться к MySQL " . $error);
 }
 else {
     $sql_category = "SELECT id, name, symbol_code FROM category";
