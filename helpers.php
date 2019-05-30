@@ -13,12 +13,12 @@
  *
  * @return bool true при совпадении с форматом 'ГГГГ-ММ-ДД', иначе false
  */
-function is_date_valid(string $date) : bool {
-    $format_to_check = 'Y-m-d';
-    $dateTimeObj = date_create_from_format($format_to_check, $date);
-
-    return $dateTimeObj !== false && array_sum(date_get_last_errors()) === 0;
-}
+//function is_date_valid(string $date) : bool {
+//    $format_to_check = 'Y-m-d';
+//    $dateTimeObj = date_create_from_format($format_to_check, $date);
+//
+//    return $dateTimeObj !== false && array_sum(date_get_last_errors()) === 0;
+//}
 
 /**
  * Создает подготовленное выражение на основе готового SQL запроса и переданных данных
@@ -29,6 +29,7 @@ function is_date_valid(string $date) : bool {
  *
  * @return mysqli_stmt Подготовленное выражение
  */
+/**
 function db_get_prepare_stmt($link, $sql, $data = []) {
     $stmt = mysqli_prepare($link, $sql);
 
@@ -73,7 +74,7 @@ function db_get_prepare_stmt($link, $sql, $data = []) {
 
     return $stmt;
 }
-
+**/
 /**
  * Возвращает корректную форму множественного числа
  * Ограничения: только для целых чисел
