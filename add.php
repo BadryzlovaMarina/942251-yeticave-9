@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['start_price'] = 'Введите число больше 0';
     }
 
-    if (!is_numeric($_POST['price_step']) or $_POST['price_step'] <= 0) {
+    if (!ctype_digit($_POST['price_step']) or $_POST['price_step'] <= 0) {
         $errors['price_step'] = 'Введите целое число больше 0';
     }
 
