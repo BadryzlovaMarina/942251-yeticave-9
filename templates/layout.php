@@ -5,7 +5,7 @@
     <title><?=htmlspecialchars($title); ?></title>
     <link href="css/normalize.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <link href="../css/flatpickr.min.css" rel="stylesheet">
+    <link href="css/flatpickr.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="page-wrapper">
@@ -44,6 +44,17 @@
     </div>
 </header>
 
+<?php if($title !== "Главная") {?>
+    <nav class="nav">
+        <ul class="nav__list container">
+            <?php foreach ($category as $value): ?>
+            <li class="nav__item">
+                <a href="all-lots.html"><?=htmlspecialchars($value['name']); ?></a>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+    </nav>
+<?php } ?>
 <main class="container">
     <?=$content; ?> 
 </main>

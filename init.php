@@ -5,7 +5,7 @@ date_default_timezone_set("Europe/Moscow");
 
 $is_auth = rand(0, 1);
 $user_name = 'Marina';
-
+$user_id = 1;
 $link = mysqli_connect($db['host'], $db['user'], $db['password'], $db['database']);
 
 mysqli_set_charset($link, "utf8");
