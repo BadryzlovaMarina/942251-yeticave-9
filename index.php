@@ -2,6 +2,12 @@
 require_once('functions.php');
 require_once('init.php');
 
+session_start();
+
+if ($_SESSION) {
+    $user = $_SESSION["user"]["name"];
+}
+
 $dt_end = date_create("tomorrow");
 $dt_now = date_create("now");
 $dt_diff = date_diff($dt_end, $dt_now);
@@ -29,8 +35,6 @@ $page_content = include_template('index.php', [
 
 $layout_content = include_template('layout.php', [
     'content' => $page_content,
-    'user_name' => $user_name,
-    'is_auth' => $is_auth,
     'title' => 'Главная',
     'category' => $category
 ]);
