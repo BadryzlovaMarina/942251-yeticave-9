@@ -29,10 +29,9 @@ $page_content = include_template('index.php', [
 
 $layout_content = include_template('layout.php', [
     'content' => $page_content,
-    'user_name' => $user_name,
-    'is_auth' => $is_auth,
     'title' => 'Главная',
-    'category' => $category
+    'category' => $category,
+    'user_name' => $user_name
 ]);
 
 print($layout_content);

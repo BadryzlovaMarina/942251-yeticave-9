@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $res = mysqli_stmt_execute($stmt);
         if ($res) {
             $lot_id = mysqli_insert_id($link);
-            header('Location: /');
+            header('Location: /login.php');
         }
         else {
             http_response_code(404);
@@ -61,8 +61,7 @@ $layout_content = include_template('layout.php', [
     'content' => $page_content,
     'title' => 'Регистрация',
     'category' => $category,
-    'user_name' => $user_name,
-    'is_auth' => $is_auth
+    'user_name' => $user_name
 ]);
 
 print($layout_content);

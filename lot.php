@@ -37,10 +37,9 @@ else {
 
 $layout_content = include_template('layout.php', [
     'content' => $page_content,
-    'user_name' => $user_name,
-    'is_auth' => $is_auth,
     'title' => 'Страница лота',
-    'category' => $category
+    'category' => $category,
+    'user_name' => $user_name
 ]);
 
 print($layout_content);
