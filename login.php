@@ -2,8 +2,6 @@
 require_once('functions.php');
 require_once('init.php');
 
-session_start();
-
 $sql_category = "SELECT id, name, symbol_code FROM category";
 $category = get_mysql_result($link, $sql_category);
 
@@ -34,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     
-    if (!empty($_POST['email']) and !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) and empty($_POST['password'])) {
+    elseif (!empty($_POST['email']) and !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = 'Такой пользователь не найден';
     }
     
@@ -61,7 +59,8 @@ else {
 $layout_content = include_template('layout.php', [
     'content' => $page_content,
     'title' => 'Вход на сайт',
-    'category' => $category
+    'category' => $category,
+    'user_name' => $user_name
 ]);
 
 print($layout_content);

@@ -2,16 +2,9 @@
 require_once('functions.php');
 require_once('init.php');
 
-session_start();
-
-if ($_SESSION) {
-    $user = $_SESSION["user"];
-}
-
 $sql_category = "SELECT id, name, symbol_code FROM category";
 $category = get_mysql_result($link, $sql_category);
 
-if (isset($_SESSION["user"])) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $required = ['name', 'description', 'start_price', 'date_end', 'price_step', 'category_id'];
@@ -94,8 +87,8 @@ if (isset($_SESSION["user"])) {
             'category' => $category
         ]);
     }   
-} 
-else {
+
+if (!isset($_SESSION['user'])) {
     http_response_code(403);
     $page_content = include_template('403.php', []);
 }    
@@ -103,7 +96,8 @@ else {
 $layout_content = include_template('layout.php', [
     'content' => $page_content,
     'title' => 'Добавление лота',
-    'category' => $category
+    'category' => $category,
+    'user_name' => $user_name
 ]);
 
 print($layout_content);

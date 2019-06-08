@@ -2,8 +2,6 @@
 require_once('functions.php');
 require_once('init.php');
 
-session_start();
-
 $sql_category = "SELECT id, name, symbol_code FROM category";
 $category = get_mysql_result($link, $sql_category);
 
@@ -62,7 +60,8 @@ else{
 $layout_content = include_template('layout.php', [
     'content' => $page_content,
     'title' => 'Регистрация',
-    'category' => $category
+    'category' => $category,
+    'user_name' => $user_name
 ]);
 
 print($layout_content);
