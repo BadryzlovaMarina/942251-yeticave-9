@@ -94,3 +94,42 @@ function get_mysql_result($link, $sql) {
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 }
+
+function time_bets($date) {
+    $date = strtotime($date);
+    $dt_diff = time() - $date;
+    $hr = floor($dt_diff / 3600);
+    $min= floor(($dt_diff % 3600) / 60);
+    if ($dt_diff < 60) {
+        $date = "Только что";
+    } elseif ($dt_diff < 3600 && $dt_diff >= 60) {
+        $date = $min . " " . get_noun_plural_form($min, "минуту", "минуты", "минут") . " назад";
+    } elseif ($dt_diff < 7200 && $dt_diff >= 3600) {
+        $date = "Час назад";
+    } elseif ($dt_diff < 86400 && $dt_diff >= 7200) {
+        $date = $hr . " " . get_noun_plural_form($hr, "час", "часа", "часов") . " назад";
+    } else {
+        $date = date("d.m.y", $date) . " в " . date("H:i", $date);
+    }
+    return $date;
+}
+
+function format_time(string $time) {
+    $dt_end = strtotime($time);
+    $dt_diff = $dt_end - time();
+    $sec = ($dt_diff % 60);
+    $hr = floor($dt_diff / 3600);
+    $min = floor(($dt_diff % 3600) / 60);
+    if ($sec < 10) {
+        $sec = '0' . $sec;
+    }
+    if ($hr < 10) {
+        $hr = '0' . $hr;
+    }
+     if ($min < 10) {
+        $min = '0' . $min;
+    }
+    $date_end = $hr . ":" . $min . ":" . $sec;
+    
+    return $date_end; 
+}
