@@ -1,9 +1,9 @@
 <section class="rates container">
   <h2>Мои ставки</h2>
   <table class="rates__list">
-   <?php foreach ($user_bets as $key => $item): ?>
-    <tr class="rates__item <?php if ($user_id === $item['winner_id']) { echo 'rates__item--win'; }
-            elseif (!($user_id === $item['winner_id']) && ($item['winner_id'])) {echo 'rates__item--end';} ?>">
+   <?php foreach ($user_bets as $item): ?>
+    <tr class="rates__item <?php if (!($user_id === $item['winner_id']) && (strtotime($item['date_end']) < strtotime(date('Y-m-d H:i:s')))) {echo 'rates__item--end';} 
+        elseif ($user_id === $item['winner_id']) { echo 'rates__item--win'; } ?>">
       <td class="rates__info">
         <div class="rates__img">
           <img src="<?= $item['image']; ?>" width="54" height="40" alt="<?= $item['image']; ?>">
@@ -16,15 +16,17 @@
       <td class="rates__category">
         <?= htmlspecialchars($item['category']); ?> 
       </td>
-      <td class="rates__timer">
-       <?php if (strtotime($item['date_end']) > time()) : ?>
-        <div class="timer <?=format_time($item['date_end'])<='01:00:00' ? "timer--finishing" : ""; ?>">
-            <?= format_time($item['date_end']); ?>
-        </div>
-        <?php else : ?>
-            <div class="timer timer--end">Торги окончены</div>
-        <?php endif; ?>
-      </td>
+        <td class="rates__timer ">
+           <?php if (strtotime($item['date_end']) > time()) : ?>
+            <div class="timer <?=format_time($item['date_end'])<='01:00:00' ? "timer--finishing" : ""; ?>">
+                <?= format_time($item['date_end']); ?>
+            </div>
+            <?php elseif ($user_id === $item['winner_id']): ?>
+                <div class="timer timer--win">Ставка выиграла</div>
+            <?php elseif (!($user_id === $item['winner_id'])) : ?>
+                <div class="timer timer--end">Торги окончены</div>
+            <?php endif; ?>
+        </td>
       <td class="rates__price">
         <?= htmlspecialchars(format_cost($item['bet_price'])); ?>
       </td>

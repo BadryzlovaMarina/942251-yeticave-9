@@ -10,11 +10,13 @@
       <p class="lot-item__description"><?=htmlspecialchars($lot['description']); ?></p>
     </div>
     <div class="lot-item__right">
-    <?php if (isset($_SESSION['user']) && (!($lot['user_id'] === $last_user)) && (!($lot['user_id'] === $user_id)) && (strtotime($lot['date_end']) > strtotime(date('Y-m-d H:i:s')))):?>
         <div class="lot-item__state">
+        <?php if (strtotime($lot['date_end']) > time()) : ?>
         <div class="lot-item__timer timer <?=format_time($lot['date_end'])<='01:00:00' ? "timer--finishing" : ""; ?>">
             <?= format_time($lot['date_end']); ?>
         </div>
+        <?php endif; ?>
+        
         <div class="lot-item__cost-state">
           <div class="lot-item__rate">
             <span class="lot-item__amount">Текущая цена</span>
@@ -23,17 +25,24 @@
             </span>
           </div>
           <div class="lot-item__min-cost">
-            Мин. ставка 
+            Мин. ставка
             <span>
                 <?php if ($lot['MAX(b.bet_price)'] !== null) {echo format_cost($lot['MAX(b.bet_price)'] + $lot['price_step']);} else {echo format_cost($lot['start_price']+ $lot['price_step']);} ?>
             </span>
           </div>
         </div>
+        <?php
+            if (empty($last_bets) || $_SESSION['user']['id'] !== $last_bets[0]['user_id']):
+              if ( isset($_SESSION['user']) && (!($lot['user_id'] === $last_user))
+                   && (!($lot['user_id'] === $user_id))
+                   && (strtotime($lot['date_end']) > strtotime(date('Y-m-d H:i:s')))
+                 ):
+        ?>
         <form class="lot-item__form" action=" " method="post" autocomplete="off">
           <p class="lot-item__form-item form__item <?=isset($errors['bet_price']) ? "form__item--invalid" : ""; ?>">
             <label for="cost">Ваша ставка</label>
-            <input id="cost" type="text" name="bet_price" 
-            placeholder="<?php if ($lot['MAX(b.bet_price)'] !== null) {echo ($lot['MAX(b.bet_price)'] + $lot['price_step']);} else {echo ($lot['start_price']+ $lot['price_step']);} ?>" 
+            <input id="cost" type="text" name="bet_price"
+            placeholder="<?php if ($lot['MAX(b.bet_price)'] !== null) {echo ($lot['MAX(b.bet_price)'] + $lot['price_step']);} else {echo ($lot['start_price']+ $lot['price_step']);} ?>"
             value="<?php if ($lot['MAX(b.bet_price)'] !== null) {echo ($lot['MAX(b.bet_price)'] + $lot['price_step']);} else {echo ($lot['start_price']+ $lot['price_step']);} ?>">
             <?php if (isset($errors['bet_price'])): ?>
                 <span class="form__error"><?= $errors['bet_price']; ?></span>
@@ -41,8 +50,11 @@
           </p>
           <button type="submit" class="button">Сделать ставку</button>
         </form>
+        <?php
+          endif;
+            endif;
+        ?>
         </div>
-    <?php endif;?>
       <div class="history">
         <h3>История ставок (<span><?= $count_bets; ?></span>)</h3>
         <table class="history__list">

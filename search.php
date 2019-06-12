@@ -6,9 +6,12 @@ $sql_category = "SELECT id, name, symbol_code FROM category";
 $category = get_mysql_result($link, $sql_category);
 
 $lots = [];
+$pages = 1;
+$pages_count = 1;
+$cur_page = 1;
 
 mysqli_query($link, "CREATE FULLTEXT INDEX lot_search ON lot(name, description)");
-    
+
 $search = $_GET['search'] ?? '';
 
 if ($search) {
@@ -21,12 +24,10 @@ if ($search) {
     $pages_count = ceil($items_count / $page_items);
     $offset = ($cur_page - 1) * $page_items;
     $pages = range(1, $pages_count);
-    
-    $sql_search = "SELECT l.id as lot_id, l.name as name, description, start_price, price_step, image, c.name as category, MAX(b.bet_price) as bet_price, date_end FROM lot l
-            JOIN category c ON l.category_id = c.id
-            LEFT JOIN bet b ON b.lot_id = l.id
-            WHERE MATCH(l.name, description) AGAINST(?)
-            GROUP BY l.id
+
+    $sql_search = "SELECT l.name name, l.id, l.start_price, l.image, c.name as category, date_end FROM lot l
+            JOIN category c on l.category_id=c.id
+            WHERE MATCH(l.name, description) AGAINST('$search' IN BOOLEAN MODE)
             ORDER BY date_create DESC LIMIT $page_items OFFSET $offset";
     $lots = get_mysql_result($link, $sql_search);
 }

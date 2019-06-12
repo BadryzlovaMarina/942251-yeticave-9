@@ -2,7 +2,7 @@
     <h2>Все лоты в категории <span><?= $category_name; ?></span></h2>
     <ul class="lots__list">
      <?php foreach ($lots as $key => $item): ?>
-      <li class="lots__item lot">
+     <li class="lots__item lot">
         <div class="lot__image">
           <img src="<?= $item['image']; ?>" width="350" height="260" alt="Сноуборд">
         </div>
@@ -16,14 +16,14 @@
             </div>
             <?php if (strtotime($item['date_end']) > time()) : ?>
             <div class="lot__timer timer <?=format_time($item['date_end'])<='01:00:00' ? "timer--finishing" : ""; ?>">
-              <?= format_time($item["date_end"]);?>
+            <?= format_time($item["date_end"]);?>
             </div>
             <?php else : ?>
-                <div class="lot__timer timer">Торги окончены</div>
+            <div class="lot__timer timer">Торги окончены</div>
             <?php endif; ?>
           </div>
         </div>
       </li>
-    </ul> 
-    <?php endforeach; ?>
-  </section>
+      <?php endforeach; ?>
+    </ul>
+</section>

@@ -13,7 +13,7 @@
         <label for="email">E-mail <sup>*</sup></label>
         <input id="email" type="text" value="<?= $email; ?>" name="email" placeholder="Введите e-mail">
         <?php if (isset($errors['email'])): ?>
-            <span class="form__error"><?= $errors['email']; ?></span>
+        <span class="form__error"><?= $errors['email']; ?></span>
         <?php endif; ?>
     </div>
     
@@ -22,7 +22,7 @@
         <label for="password">Пароль <sup>*</sup></label>
         <input id="password" type="password" value="<?= $password; ?>" name="password" placeholder="Введите пароль">
         <?php if (isset($errors['password'])): ?>
-            <span class="form__error"><?= $errors['password']; ?></span>
+        <span class="form__error"><?= $errors['password']; ?></span>
         <?php endif; ?>
     </div>
     
@@ -31,7 +31,7 @@
         <label for="name">Имя <sup>*</sup></label>
         <input id="name" type="text" value="<?= $name; ?>" name="name" placeholder="Введите имя">
         <?php if (isset($errors['name'])): ?>
-            <span class="form__error"><?= $errors['name']; ?></span>
+        <span class="form__error"><?= $errors['name']; ?></span>
         <?php endif; ?>
     </div>
     
@@ -40,13 +40,13 @@
         <label for="message">Контактные данные <sup>*</sup></label>
         <textarea id="message" value="<?= $contact; ?>" name="contact" placeholder="Напишите как с вами связаться"></textarea>
         <?php if (isset($errors['contact'])): ?>
-            <span class="form__error"><?= $errors['contact']; ?></span>
+        <span class="form__error"><?= $errors['contact']; ?></span>
         <?php endif; ?>
     </div>
     
     <?php if (isset($errors)): ?>
-        <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
+    <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
     <?php endif; ?>
     <button type="submit" class="button">Зарегистрироваться</button>
     <a class="text-link" href="#">Уже есть аккаунт</a>
-  </form>
+</form>
