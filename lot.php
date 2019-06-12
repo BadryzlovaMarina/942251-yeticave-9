@@ -2,7 +2,7 @@
 require_once('functions.php');
 require_once('init.php');
 
-$sql_category = "SELECT name, symbol_code FROM category";
+$sql_category = "SELECT id, name, symbol_code FROM category";
 $category = get_mysql_result($link, $sql_category);
 
 if (isset($_GET['id'])) {
@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
     $result = mysqli_query($link, $sql_count);
     $count_bets = mysqli_fetch_assoc($result)['count'];
     
-    $sql_lot = "SELECT l.id, l.name as title, description, start_price, image, l.user_id, l.date_end as date_end, price_step, MAX(b.bet_price), c.name as category FROM lot l
+    $sql_lot = "SELECT l.id as id_l, l.name as title, description, start_price, image, l.user_id, l.date_end as date_end, price_step, MAX(b.bet_price), c.name as category FROM lot l
     JOIN category c ON l.category_id = c.id
     LEFT JOIN bet b ON b.lot_id = l.id
     WHERE l.id = $id 

@@ -49,7 +49,7 @@
         <ul class="nav__list container">
             <?php foreach ($category as $value): ?>
             <li class="nav__item">
-                <a href="all-lots.php"><?=htmlspecialchars($value['name']); ?></a>
+                <a href="all-lots.php?category=<?=$value['id']; ?>&name=<?=htmlspecialchars($value['name']); ?>"><?=htmlspecialchars($value['name']); ?></a>
             </li>
             <?php endforeach; ?>
         </ul>
@@ -67,7 +67,7 @@
             <!--заполните этот список из массива категорий-->
             <?php foreach ($category as $value): ?>
             <li class="nav__item">
-                <a href="all-lots.php"><?=htmlspecialchars($value['name']); ?></a>
+                <a href="all-lots.php?category=<?=$value['id']; ?>&name=<?=htmlspecialchars($value['name']); ?>"><?=htmlspecialchars($value['name']); ?></a>
             </li>
             <?php endforeach; ?>
         </ul>
