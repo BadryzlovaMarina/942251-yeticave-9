@@ -1,5 +1,5 @@
 <section class="lot-item container">
-<?php foreach ($lot_list as $lot): ?>
+<?php foreach ($lot as $lot): ?>
   <h2><?=htmlspecialchars($lot['title']); ?></h2>
   <div class="lot-item__content">
     <div class="lot-item__left">
@@ -10,24 +10,31 @@
       <p class="lot-item__description"><?=htmlspecialchars($lot['description']); ?></p>
     </div>
     <div class="lot-item__right">
-    <?php if (isset($_SESSION["user"])):?>
+    <?php if (isset($_SESSION['user']) && (!($lot['user_id'] === $last_user)) && (!($lot['user_id'] === $user_id)) && (strtotime($lot['date_end']) > strtotime(date('Y-m-d H:i:s')))):?>
         <div class="lot-item__state">
-        <div class="lot-item__timer timer <?=format_time($lot["date_end"])<='01:00:00' ? "timer--finishing" : ""; ?>">
-            <?= format_time($lot["date_end"]); ?>
+        <div class="lot-item__timer timer <?=format_time($lot['date_end'])<='01:00:00' ? "timer--finishing" : ""; ?>">
+            <?= format_time($lot['date_end']); ?>
         </div>
         <div class="lot-item__cost-state">
           <div class="lot-item__rate">
             <span class="lot-item__amount">Текущая цена</span>
-            <span class="lot-item__cost"><?=format_cost($lot['start_price']); ?></span>
+            <span class="lot-item__cost">
+                <?php if ($lot['MAX(b.bet_price)'] !== null) {echo format_cost($lot['MAX(b.bet_price)']);} else {echo format_cost($lot['start_price']);} ?>
+            </span>
           </div>
           <div class="lot-item__min-cost">
-            Мин. ставка <span><?=format_cost($lot['min_price']); ?></span>
+            Мин. ставка 
+            <span>
+                <?php if ($lot['MAX(b.bet_price)'] !== null) {echo format_cost($lot['MAX(b.bet_price)'] + $lot['price_step']);} else {echo format_cost($lot['start_price']+ $lot['price_step']);} ?>
+            </span>
           </div>
         </div>
         <form class="lot-item__form" action=" " method="post" autocomplete="off">
           <p class="lot-item__form-item form__item <?=isset($errors['bet_price']) ? "form__item--invalid" : ""; ?>">
             <label for="cost">Ваша ставка</label>
-            <input id="cost" type="text" name="bet_price" placeholder="12 000">
+            <input id="cost" type="text" name="bet_price" 
+            placeholder="<?php if ($lot['MAX(b.bet_price)'] !== null) {echo ($lot['MAX(b.bet_price)'] + $lot['price_step']);} else {echo ($lot['start_price']+ $lot['price_step']);} ?>" 
+            value="<?php if ($lot['MAX(b.bet_price)'] !== null) {echo ($lot['MAX(b.bet_price)'] + $lot['price_step']);} else {echo ($lot['start_price']+ $lot['price_step']);} ?>">
             <?php if (isset($errors['bet_price'])): ?>
                 <span class="form__error"><?= $errors['bet_price']; ?></span>
             <?php endif; ?>

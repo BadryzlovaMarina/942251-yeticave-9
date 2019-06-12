@@ -83,6 +83,21 @@ function format_cost($num) {
     return $result;
 }
 
+function format_num($num) {
+    $ceil_num = ceil($num);
+
+    if ($ceil_num < 1000) {
+        $format_num = $ceil_num;
+    }
+    else  {
+        $format_num = number_format($ceil_num, 0, '', ' ');
+    }
+
+    $result = $format_num;
+
+    return $result;
+}
+
 function get_mysql_result($link, $sql) {
     $result = mysqli_query($link, $sql);
     if (!$result) {

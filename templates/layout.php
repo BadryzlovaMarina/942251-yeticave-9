@@ -16,7 +16,7 @@
         <a class="main-header__logo" <?php if($title !== "Главная") {?> href="index.php" <?php } ?>>
             <img src="img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
         </a>
-        <form class="main-header__search" method="get" action="https://echo.htmlacademy.ru" autocomplete="off">
+        <form class="main-header__search" method="get" action="search.php" autocomplete="off">
             <input type="search" name="search" placeholder="Поиск лота">
             <input class="main-header__search-btn" type="submit" name="find" value="Найти">
         </form>
@@ -49,7 +49,7 @@
         <ul class="nav__list container">
             <?php foreach ($category as $value): ?>
             <li class="nav__item">
-                <a href="all-lots.html"><?=htmlspecialchars($value['name']); ?></a>
+                <a href="all-lots.php"><?=htmlspecialchars($value['name']); ?></a>
             </li>
             <?php endforeach; ?>
         </ul>
@@ -67,7 +67,7 @@
             <!--заполните этот список из массива категорий-->
             <?php foreach ($category as $value): ?>
             <li class="nav__item">
-                <a href="pages/all-lots.html"><?=htmlspecialchars($value['name']); ?></a>
+                <a href="all-lots.php"><?=htmlspecialchars($value['name']); ?></a>
             </li>
             <?php endforeach; ?>
         </ul>
